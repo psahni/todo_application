@@ -6,7 +6,9 @@ $(function($){
            title: '',
 		   completed: false 
         },
+       
         toggle: function() {
+            this.url = "/todos/" + this.attributes.id + "/completed";
 			this.save({
 				completed: !this.get('completed')
 			});

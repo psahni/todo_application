@@ -9,16 +9,17 @@ $(function($){
 			'click #toggle-all': 'toggleAllComplete'
 	    },
 	    initialize: function(){
-	        this.input = this.$('#new-todo');
-	        this.allCheckbox = this.$('#toggle-all')[0];
-	        this.$footer = this.$('#footer');
-	        this.$main = this.$('#main');
-	        
-	        app.Todos.on( 'add', this.addOne, this );
-	        app.Todos.on( 'all', this.render, this );      
-	        app.Todos.on( 'reset', this.addAll, this );
-	        app.Todos.on( 'filter', this.filterAll, this );
-	        app.Todos.on( 'change:completed', this.filterOne, this );
+	      	this.input = this.$('#new-todo');
+			this.allCheckbox = this.$('#toggle-all')[0];
+			this.$footer = this.$('#footer');
+			this.$main = this.$('#main');
+
+			app.Todos.on( 'add', this.addOne, this );
+			app.Todos.on( 'reset', this.addAll, this );
+			app.Todos.on( 'change:completed', this.filterOne, this );
+			app.Todos.on( 'filter', this.filterAll, this );
+			app.Todos.on( 'all', this.render, this );
+
 	        
 	        app.Todos.fetch(); // -> It is sending request to /api/todos and it will call 'all' and 'reset' method
 	    },

@@ -3,7 +3,8 @@ MytodoApp::Application.routes.draw do
   scope 'api' do
     resources :todos
   end
-
+  match "/todos/:id/completed", :to => "todos#update", :todo_completed => "completed"
+  
   root :to => 'pages#index'
 
   match '*path', :to =>  'pages#index'

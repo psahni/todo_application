@@ -15,7 +15,12 @@ class TodosController < ApplicationController
   end
 
   def update
-    respond_with Todo.update params[:id], params[:todo]
+    if params["todo_completed"] == "completed"
+      respond_with Todo.complete params[:id], params[:todo]
+   else
+     respond_with Todo.update params[:id], params[:todo]  
+    end
+    
   end
 
   def destroy
