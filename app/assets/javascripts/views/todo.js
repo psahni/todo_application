@@ -1,3 +1,73 @@
+var app = app || {};
+$(function($){
+   'use strict';
+   app.TodoView = Backbone.View.extend({
+       tagName:  'li',
+       template: JST["todos/todo"],
+       initialize: function(){
+        this.model.on( 'change', this.render, this );
+	    this.model.on( 'destroy', this.remove, this );
+	    this.model.on( 'visible', this.toggleVisible, this );
+       },
+       events:{
+          'click .destroy':	'clear' ,
+          'keypress .edit':	'updateOnEnter',
+          'dblclick label':	'edit',
+          'blur .edit':		'restore',
+          'click .toggle':	'togglecompleted'
+       },
+       render: function() {
+			this.$el.html( this.template( this.model.toJSON() ) );
+			this.$el.toggleClass( 'completed', this.model.get('completed') ); //** Mark if completed **
+			this.toggleVisible();                                            //**  Hide or Visible
+			this.input = this.$('.edit');
+			return this;
+		},
+		toggleVisible : function () {
+			this.$el.toggleClass( 'hidden',  this.isHidden());
+		},
+		isHidden : function () {
+			var isCompleted = this.model.get('completed');
+			return ( // hidden cases only
+				(!isCompleted && app.TodoFilter === 'completed')
+				|| (isCompleted && app.TodoFilter === 'active')
+			);
+		},
+		// Remove the item, destroy the item from server and delete its view.
+		clear: function() {
+			this.model.destroy();
+		},
+	    togglecompleted: function() {
+			this.model.toggle();
+		},
+		// If you hit `enter`, we're through editing the item.
+		updateOnEnter: function( e ) {
+			if ( e.which === ENTER_KEY ) {
+				this.close();
+			}
+		},
+		// Close the `"editing"` mode, saving changes to the todo.
+		close: function() {
+			var value = this.input.val().trim();
+			if ( value ) {
+				this.model.save({ title: value});
+			} else {
+				this.clear();
+			}
+
+			this.$el.removeClass('editing');
+		},
+		// Switch this view into `"editing"` mode, displaying the input field.
+		edit: function() {
+			this.$el.addClass('editing');
+			this.input.focus();
+		},
+		restore: function(){
+    		this.$el.removeClass('editing');
+		}
+	});
+
+})
 /*TaskFormView = Backbone.View.extend({
    initialize: function(){
        this.template = _.template($("#formTemplate").html());
@@ -14,7 +84,7 @@
        
    }
 });
-*/
+
 
 var app = app || {};
 
@@ -110,4 +180,4 @@ $(function() {
 		}
 	});
 });
-
+*/

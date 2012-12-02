@@ -1,3 +1,31 @@
+var app = app || {};
+$(function($){
+    'use strict';
+    var TodoList = Backbone.Collection.extend({
+       url: "/api/todos" ,
+       model: app.Todo,
+	   completed: function() {
+			return this.filter(function( todo ) {
+				return todo.get('completed');
+			});
+		},
+       nextOrder: function() {
+			if ( !this.length ) {
+				return 1;
+	     }
+	    },
+	    // Filter down the list to only todo items that are still not finished.
+		remaining: function() {
+			return this.without.apply( this, this.completed() );
+		},
+		comparator: function(todo){
+			return todo.get('order');
+		}
+			
+    });
+    
+    app.Todos = new TodoList();
+});
 /*Tasks = Backbone.Collection.extend({
     model: Task,
     url: "/api/todos",
@@ -10,7 +38,7 @@
 
 tasks = new Tasks;
 
-*/
+
 var app = app || {};
 
 (function() {
@@ -59,4 +87,4 @@ var app = app || {};
 	// Create our global collection of **Todos**.
 	app.Todos = new TodoList();
 
-}());
+}());*/
