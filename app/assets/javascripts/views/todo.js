@@ -18,7 +18,6 @@ $(function($){
        },
        render: function() {
 			this.$el.html( this.template( this.model.toJSON() ) );
-			alert( this.model.get('completed') )
 			this.$el.toggleClass( 'completed', this.model.get('completed') ); //** Mark if completed **
 			this.toggleVisible();                                            //**  Hide or Visible
 			this.input = this.$('.edit');

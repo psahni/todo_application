@@ -1,14 +1,10 @@
 class Todo < ActiveRecord::Base
   
   attr_accessible :title, :complete_status, :completed
-  attr_accessor :completed
   
-  def completed
-    !self.completed_at.nil?
-  end
 
   def self.complete(id, attrs)
-    Rails.logger.info("comple")
+    Rails.logger.info("== Completing todo ==")
     todo  = find(id)
     todo.attributes = attrs
     todo.completed_at = Time.now
@@ -16,6 +12,5 @@ class Todo < ActiveRecord::Base
     return todo
   end
   
-  def find_all
-  end  
+    
 end

@@ -74,7 +74,6 @@ $(function($){
 			app.Todos.each(this.addOne, this);
 		},
 		filterOne : function (todo) {
-		    console.log("filter One")
 			todo.trigger('visible');
 		},
 		filterAll : function () {

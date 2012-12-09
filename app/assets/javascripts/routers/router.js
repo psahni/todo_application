@@ -28,7 +28,6 @@ $(function($) {
 			app.TodoFilter = param.trim() || '';
 			// Trigger a collection filter event, causing hiding/unhiding
 			// of Todo view items
-			console.log("in router")
 			app.Todos.trigger('filter');
 		}
 	});

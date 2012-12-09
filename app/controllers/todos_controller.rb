@@ -20,7 +20,6 @@ class TodosController < ApplicationController
    else
      respond_with Todo.update params[:id], params[:todo]  
     end
-    
   end
 
   def destroy
